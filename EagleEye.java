@@ -40,7 +40,7 @@ public class EagleEye {
     *  Accomplishes phase II of the design brief: Populates the IP map
     *  Pre: flowLog is a parseable flow log from the AWS cloud with the necessary flags in the necessary order
     */
-    public static void createConnections(File flowLog) throws FileNotFoundException {
+    private static void createConnections(File flowLog) throws FileNotFoundException {
         Scanner flowLogScanner = new Scanner(flowLog);
         flowLogScanner.nextLine(); // Very first line is a message
         while (flowLogScanner.hasNextLine()) { //Iterates over rest of the lines
@@ -100,9 +100,28 @@ public class EagleEye {
     */
     private static void assembleReport() {
         Set<String> hashMapKeys = IPHolder.keySet();
-
-    }   
-
+        for (String IP : hashMapKeys) {
+            ConnectionsHolder currentHolder = IPHolder.get(IP);
+            if (currentHolder.anyOffHours()) {
+                ArrayList<Connection> offHourConnections = currentHolder.allOffHours();
+                for (Connection con : offHourConnections) {
+                    userReport.addToOffHour(con);
+                }
+            }
+            if (currentHolder.anyOverThreshold()) {
+                ArrayList<Connection> overThreshConnections = currentHolder.allOverThreshold();
+                for (Connection con : overThreshConnections) {
+                    userReport.addToOverThresh(con);
+                }
+            }
+            if (currentHolder.anyOutsideRegions()) {
+                ArrayList<Connection> outerRegionConnections = currentHolder.allOutsideRegions();
+                for (Connection con : outerRegionConnections) {
+                    userReport.addToOutOfRegion(con);
+                }
+            }
+        }   
+    }
 /*
  *Phase IV
  * The updated report object is output to a file for user access
@@ -111,6 +130,6 @@ public class EagleEye {
  *
  */
     private static void outputReport() {
-
+        
     }
 }

@@ -2,10 +2,10 @@ import java.util.ArrayList;
 
 public class ConnectionsHolder {
 
-	ArrayList<Connection> allConnections;
-	ArrayList<Connection> overThreshConnections;
-	ArrayList<Connection> offHourConnections;
-	ArrayList<Connection> outsideRegionConnections;
+	private ArrayList<Connection> allConnections;
+	private ArrayList<Connection> overThreshConnections;
+	private ArrayList<Connection> offHourConnections;
+	private ArrayList<Connection> outsideRegionConnections;
 
 	public ConnectionsHolder() {
 		allConnections = new ArrayList<>();

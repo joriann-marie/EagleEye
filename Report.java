@@ -38,10 +38,15 @@ public class Report {
 	public String outputReport() {
 		StringBuilder result = new StringBuilder();
 		result.append("ALL ACCEPTED CONNECTIONS OUTSIDE OF YOUR DEFINED BUSINESS HOURS");
+		result.append("\n");
 		result.append(offHours.toString());
+		result.append("\n\n");
 		result.append("ALL ACCEPTED CONNECTIONS OVER YOUR DEFINED BYTE THRESHOLD");
+		result.append("\n");
 		result.append(overThresh.toString());
+		result.append("\n\n");
 		result.append("ALL ACCEPTED CONNECTIONS FROM OUTSIDE OF YOUR DEFINED REGION");
+		result.append("\n");
 		result.append(outOfRegion.toString());
 		return result.toString();
 	}
