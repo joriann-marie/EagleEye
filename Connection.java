@@ -111,12 +111,11 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
     /*
      * Returns true if the start time contained within tokenHolder is within
      * BEGIN_DAY and END_DAY
-     * 
-     * TODO use EpochClockSwapper to use truncated time instead of untruncated time. Necessary for this method
      */
     public boolean withinTimeOfDay() {
-        long time = getStart();
-        return (time > BEGIN_DAY && time < END_DAY);
+        EpochClockSwapper toTruncated = new EpochClockSwapper(getStart());
+        long time = toTruncated.getUNIXTruncatedTime();
+        return (time >= BEGIN_DAY && time <= END_DAY);
     }
 
     /*
