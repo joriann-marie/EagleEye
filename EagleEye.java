@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -30,7 +31,10 @@ public class EagleEye {
     private static final int NUM_FLAGS = 9;
 
     // Main hash map of connections, key is IP and value is a ConnectionsHolder
-    private static HashMap<String, ConnectionsHolder> IPHolder;
+    private static HashMap<String, ConnectionsHolder> IPHolder = new HashMap<>();;
+
+    // Holds all of the information that is given to the user
+    private static Report userReport = new Report();
 
     /*
     *  Accomplishes phase II of the design brief: Populates the IP map
@@ -86,5 +90,27 @@ public class EagleEye {
             addIntoMap.addConnection(toAdd);
             IPHolder.put(ip, addIntoMap);
         }
+    }
+
+    /*
+    *  Phase III
+    *  Iterates over the IP hash map, adds trigger-alerting connection to the report, and updates the Report object
+    *  Each key in the map is a Source Packet IP, each key a ConnectionsHolder
+    *  Each ConnectionsHolder has an ArrayList<Connection> for the alert-triggering connections of each flavor for that IP
+    */
+    private static void assembleReport() {
+        Set<String> hashMapKeys = IPHolder.keySet();
+
+    }   
+
+/*
+ *Phase IV
+ * The updated report object is output to a file for user access
+ * Essentially just a matter of taking the Report's toString() and writing it to the correct file/directory
+ * Not sure how files would work for AWS, may need some work to make that work.
+ *
+ */
+    private static void outputReport() {
+
     }
 }
