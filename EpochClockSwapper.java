@@ -18,10 +18,10 @@ public class EpochClockSwapper {
     }
     
     /*
-    * Returns the time as a long epoch
+    * Returns the time as a long epoch in seconds
     */
     public long getUNIXTime() {
-        return date.getTime();
+        return date.getTime()/1000;
     }
     
     /*
@@ -29,14 +29,14 @@ public class EpochClockSwapper {
     */
     public String getDateTime() {
             // Taken from https://www.epochconverter.com/
-            return new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (getUNIXTime()));
+            return new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (date.getTime()));
     }
     
     /*
-    * Returns the time as a long epoch, but as if it were on day 0 so as to only have the clock time
+    * Returns the time as a long epoch in seconds, but as if it were on day 0 so as to only have the clock time
     */
     public long getUNIXTruncatedTime() {
-        return (getUNIXTime()/1000) % TRUNCATE_DATE + OFFSET;
+        return (getUNIXTime() % TRUNCATE_DATE) + OFFSET;
     }
     
     /*
@@ -45,7 +45,8 @@ public class EpochClockSwapper {
     public String getTruncatedDateTime() {
             // Taken from https://www.epochconverter.com/
             final int TRUNCATE_CALENDAR_DATE = 11;
-            String result = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (getUNIXTime()));
+            String result = new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (
+                    date.getTime()));
             return result.substring(TRUNCATE_CALENDAR_DATE);
     }
 }
