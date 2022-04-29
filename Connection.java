@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.Stack;
 
-//TODO Redo constructor. Will already be verified as well-formed and within the timeframe
-
 public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61.56.35 108.61.56.35
                           // us-east-1 76
 
