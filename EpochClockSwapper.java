@@ -12,7 +12,9 @@ public class EpochClockSwapper {
     
     private Date date; // Main Date object
     
-    // Takes current local time in milliseconds
+    /*
+    *  Takes current local epoch time in milliseconds
+    */
     public EpochClockSwapper (long UNIXTime) {
         date = new Date(UNIXTime);
     }
