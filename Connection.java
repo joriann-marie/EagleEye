@@ -21,9 +21,6 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
     private String region;
     private long bytes;
 
-    // Meta Info
-    private String toString;
-
     /*
      * Pre: flowLogLine not null, modeRegion not null
      * 
@@ -33,7 +30,6 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
     public Connection(String flowLogLine, long threshold, String modeRegion, long beginDay, long endDay) { 
         Scanner flowLogLineReader = new Scanner(flowLogLine);
         Stack<String> tokenHolder = new Stack<>();
-        toString = flowLogLine;
         while (flowLogLineReader.hasNext()) {
             bytes = Long.parseLong(tokenHolder.pop());
             region = tokenHolder.pop();
@@ -88,10 +84,28 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
         return bytes;
     }
 
-    // TODO use EpochClockSwapper to output  a user-readable date format instead of system time
-    // TODO label each token in the connection
     public String toString() {
-        return toString;
+        EpochClockSwapper unixToDate = new EpochClockSwapper(getStart());
+        StringBuilder result = new StringBuilder();
+        result.append("DateAndTime-> ");
+        result.append(unixToDate.getDateTime());
+        result.append(" SourcePort-> ");
+        result.append(getSourcePort());
+        result.append(" ImmediateSourceIP-> ");
+        result.append(getSourceIP());
+        result.append(" PakcetSourceIP-> ");
+        result.append(getSourcePacketIP());
+        result.append(" DestinationPort-> ");
+        result.append(getDestPort());
+        result.append(" ImmediateDestinationIP-> ");
+        result.append(getDestIP());
+        result.append(" PacketDestinationIP-> ");
+        result.append(getDestPacketIP());
+        result.append(" Region-> ");
+        result.append(getRegion());
+        result.append(" Bytes-> ");
+        result.append(getBytes());
+        return result.toString();
     }
 
     /*
