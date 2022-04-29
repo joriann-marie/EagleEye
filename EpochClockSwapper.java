@@ -38,7 +38,12 @@ public class EpochClockSwapper {
     * Returns the time as a long epoch in seconds, but as if it were on day 0 so as to only have the clock time
     */
     public long getUNIXTruncatedTime() {
-        return (getUNIXTime() % TRUNCATE_DATE) + OFFSET;
+        String timeAsString = getTruncatedDateTime();
+        String hour = timeAsString.substring(0, 2);
+        String minute = timeAsString.substring(3, 5);
+        String second = timeAsString.substring(6);
+        // TODO
+        
     }
     
     /*
