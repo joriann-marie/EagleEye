@@ -10,10 +10,14 @@ PHASE IV - Use each report StringBuilder to output the alert report
 
 CLASSES AND DATA STRUCTURES
 
-IP HashMap:
+IP HashMap :
   key is the source packet ip as a String
   value is a ConnectionsHolder object
   
+Report:
+  holds the StringBuilders that output the entirety of the report
+  toString() will give the entirety of the report 
+
 ConnectionsHolder:
   holds all the connections that share a source packet ip
   the addConnection() method will determine whether the Connection violates any alert triggers and add them to the appropriate internal ArrayList
