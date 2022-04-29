@@ -88,6 +88,8 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
         return bytes;
     }
 
+    // TODO use EpochClockSwapper to output  a user-readable date format instead of system time
+    // TODO label each token in the connection
     public String toString() {
         return toString;
     }
