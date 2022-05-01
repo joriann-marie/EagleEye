@@ -28,7 +28,7 @@ public class EpochClockSwapper {
     */
     public String getDateTime() {
             // Taken from https://www.epochconverter.com/
-            return new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (date.getTime()));
+            return new java.text.SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new java.util.Date (date.getTime()*1000));
     }
     
     /*

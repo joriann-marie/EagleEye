@@ -29,7 +29,7 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
     public Connection(String flowLogLine, long threshold, String modeRegion, long beginDay, long endDay) { 
         Scanner flowLogLineReader = new Scanner(flowLogLine);
         THRESHOLD = threshold;
-        MODE_REGION = region;
+        MODE_REGION = modeRegion;
         BEGIN_DAY = beginDay;
         END_DAY = endDay;
         start = flowLogLineReader.nextLong();
@@ -89,7 +89,7 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
         result.append(getSourcePort());
         result.append(" ImmediateSourceIP-> ");
         result.append(getSourceIP());
-        result.append(" PakcetSourceIP-> ");
+        result.append(" PacketSourceIP-> ");
         result.append(getSourcePacketIP());
         result.append(" DestinationPort-> ");
         result.append(getDestPort());
