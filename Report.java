@@ -35,7 +35,7 @@ public class Report {
 	/*
 	*  Outputs all of the alert-triggering connections, along with some guiding text for the user
 	*/
-	public String outputReport() {
+	public String toString() {
 		StringBuilder result = new StringBuilder();
 		result.append("ALL ACCEPTED CONNECTIONS OUTSIDE OF YOUR DEFINED BUSINESS HOURS");
 		result.append("\n");

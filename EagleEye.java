@@ -1,13 +1,10 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-// TODO Determine whether EagleEye.java should have a main method or be another class and worked by a driver
-// TODO Phase I pull in flowlog file
-// TODO Phase IV output userReport.toString() to some file
 
 public class EagleEye {
 
@@ -40,15 +37,35 @@ public class EagleEye {
     // Holds all of the information that is given to the user
     private static Report userReport = new Report();
 
+
+    public static void main (String[] args) throws FileNotFoundException {
+        File flowLog = getFile();
+        createConnections(flowLog);
+        assembleReport();
+        outputReport();
+    }
+    /*
+    *  Accomplishes phase I of the design brief: 
+    *  Pre: flowLog is named "log-events-viewer-result.csv" and is in the working directory
+    */
+    private static File getFile() {
+        File result = new File("log-events-viewer-result.csv");
+        if (!result.exists()) {
+            throw new IllegalStateException("\"log-events-viewer-result.csv\" not found");
+        } else {
+            return result;
+        }
+    }
+
     /*
     *  Accomplishes phase II of the design brief: Populates the IP map
     *  Pre: flowLog is a parseable flow log from the AWS cloud with the necessary flags in the necessary order
     */
-    private void createConnections(File flowLog) throws FileNotFoundException {
+    private static void createConnections(File flowLog) throws FileNotFoundException {
         Scanner flowLogScanner = new Scanner(flowLog);
         flowLogScanner.nextLine(); // Very first line is a message
         while (flowLogScanner.hasNextLine()) { //Iterates over rest of the lines
-            String flowLogLine = flowLogScanner.nextLine();
+            String flowLogLine = sanitizeConnectionLine(flowLogScanner.nextLine());
             Scanner flowLogLineReader = new Scanner(flowLogLine);
             ArrayList<String> tokenHolder = new ArrayList<>();
             while (flowLogLineReader.hasNext()) { // Puts all tokens of a line into stack
@@ -65,8 +82,16 @@ public class EagleEye {
         }
         flowLogScanner.close();
     }
+
+    /*
+    *  Removes up until the , for the line in the flow log
+    */ 
+    private static String sanitizeConnectionLine (String flowLogLine) {
+        int keepPast = flowLogLine.indexOf(',') + 1;
+        return flowLogLine.substring(keepPast);
+    }
     
-    private boolean flowLogLineWellFormed (ArrayList<String> flowLogLines) {
+    private static boolean flowLogLineWellFormed (ArrayList<String> flowLogLines) {
         return flowLogLines.size() == NUM_FLAGS;
     }
 
@@ -74,7 +99,7 @@ public class EagleEye {
      * Returns true if the start time contained within tokenHolder is within
      * START_DATE and END_DATE
      */
-    private boolean withinDateRange(ArrayList<String> tokenHolder) {
+    private static boolean withinDateRange(ArrayList<String> tokenHolder) {
         long time = Long.parseLong(tokenHolder.get(START_INDEX));
         return (time >= START_DATE && time <= END_DATE);
     }
@@ -84,7 +109,7 @@ public class EagleEye {
     *  Inserts toAdd into the IP hash map. Key is the SourcePacketIP, value is ConnectionsHolder. 
     *  Will add a ConnectionsHolder pair if one is missing. Otherwise, updates the existing ConnectionsHolder. 
     */
-    private void addToMap(Connection toAdd) {
+    private static void addToMap(Connection toAdd) {
         String ip = toAdd.getSourcePacketIP();
         if (IPHolder.containsKey(ip)) {
             ConnectionsHolder addConnectionTo = IPHolder.get(ip);
@@ -133,8 +158,10 @@ public class EagleEye {
  * Not sure how files would work for AWS, may need some work to make that work.
  *
  */
-    private void outputReport() {
-        String entireReport = userReport.toString();
-        
+    private static void outputReport() throws FileNotFoundException {
+        File userFile = new File("Eagle Eye Report.txt");
+        PrintStream output = new PrintStream(userFile);
+        output.print(userReport.toString());
+        output.close();
     }
 }

@@ -10,7 +10,7 @@ public class EpochClockSwapper {
     private Date date; // Main Date object
     
     /*
-    *  Takes current local epoch time in milliseconds
+    *  Takes current local epoch time in seconds
     */
     public EpochClockSwapper (long UNIXTime) {
         date = new Date(UNIXTime);
@@ -20,7 +20,7 @@ public class EpochClockSwapper {
     * Returns the time as a long epoch in seconds
     */
     public long getUNIXTime() {
-        return date.getTime()/1000;
+        return date.getTime();
     }
     
     /*
