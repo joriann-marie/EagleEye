@@ -1,5 +1,4 @@
 import java.util.Scanner;
-import java.util.Stack;
 
 public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61.56.35 108.61.56.35
                           // us-east-1 76
@@ -29,22 +28,19 @@ public class Connection { // 1651074984 43227 172.31.24.7 172.31.24.7 123 108.61
      */
     public Connection(String flowLogLine, long threshold, String modeRegion, long beginDay, long endDay) { 
         Scanner flowLogLineReader = new Scanner(flowLogLine);
-        Stack<String> tokenHolder = new Stack<>();
-        while (flowLogLineReader.hasNext()) {
-            bytes = Long.parseLong(tokenHolder.pop());
-            region = tokenHolder.pop();
-            destPacketIP = tokenHolder.pop();
-            destIP = tokenHolder.pop();
-            destPort = Integer.parseInt(tokenHolder.pop());
-            sourcePacketIP = tokenHolder.pop();
-            sourceIP = tokenHolder.pop();
-            sourcePort = Integer.parseInt(tokenHolder.pop());
-            start = Long.parseLong(tokenHolder.pop());
-        }
         THRESHOLD = threshold;
         MODE_REGION = region;
         BEGIN_DAY = beginDay;
         END_DAY = endDay;
+        start = flowLogLineReader.nextLong();
+        sourcePort = flowLogLineReader.nextInt();
+        sourceIP = flowLogLineReader.next();
+        sourcePacketIP = flowLogLineReader.next();
+        destPort = flowLogLineReader.nextInt();
+        destIP = flowLogLineReader.next();
+        destPacketIP = flowLogLineReader.next();
+        region = flowLogLineReader.next();
+        bytes = flowLogLineReader.nextLong();
         flowLogLineReader.close();
     }
 
