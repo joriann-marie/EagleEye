@@ -5,6 +5,10 @@ import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+// TODO Determine whether EagleEye.java should have a main method or be another class and worked by a driver
+// TODO Phase I pull in flowlog file
+// TODO Phase IV output userReport.toString() to some file
+
 public class EagleEye {
 
     // Dates between which connections will be considered. In epoch time seconds
