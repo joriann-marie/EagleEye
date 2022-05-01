@@ -40,7 +40,7 @@ public class EagleEye {
     *  Accomplishes phase II of the design brief: Populates the IP map
     *  Pre: flowLog is a parseable flow log from the AWS cloud with the necessary flags in the necessary order
     */
-    private static void createConnections(File flowLog) throws FileNotFoundException {
+    private void createConnections(File flowLog) throws FileNotFoundException {
         Scanner flowLogScanner = new Scanner(flowLog);
         flowLogScanner.nextLine(); // Very first line is a message
         while (flowLogScanner.hasNextLine()) { //Iterates over rest of the lines
@@ -62,7 +62,7 @@ public class EagleEye {
         flowLogScanner.close();
     }
     
-    private static boolean flowLogLineWellFormed (ArrayList<String> flowLogLines) {
+    private boolean flowLogLineWellFormed (ArrayList<String> flowLogLines) {
         return flowLogLines.size() == NUM_FLAGS;
     }
 
@@ -70,9 +70,9 @@ public class EagleEye {
      * Returns true if the start time contained within tokenHolder is within
      * START_DATE and END_DATE
      */
-    private static boolean withinDateRange(ArrayList<String> tokenHolder) {
+    private boolean withinDateRange(ArrayList<String> tokenHolder) {
         long time = Long.parseLong(tokenHolder.get(START_INDEX));
-        return (time > START_DATE && time < END_DATE);
+        return (time >= START_DATE && time <= END_DATE);
     }
 
     /*
@@ -80,7 +80,7 @@ public class EagleEye {
     *  Inserts toAdd into the IP hash map. Key is the SourcePacketIP, value is ConnectionsHolder. 
     *  Will add a ConnectionsHolder pair if one is missing. Otherwise, updates the existing ConnectionsHolder. 
     */
-    private static void addToMap(Connection toAdd) {
+    private void addToMap(Connection toAdd) {
         String ip = toAdd.getSourcePacketIP();
         if (IPHolder.containsKey(ip)) {
             ConnectionsHolder addConnectionTo = IPHolder.get(ip);
@@ -129,7 +129,8 @@ public class EagleEye {
  * Not sure how files would work for AWS, may need some work to make that work.
  *
  */
-    private static void outputReport() {
+    private void outputReport() {
+        String entireReport = userReport.toString();
         
     }
 }
