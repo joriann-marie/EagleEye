@@ -20,7 +20,7 @@ public class EagleEye {
     
     // Indices for the flow log. Flow log should have exactly these fields in exactly this order
     private static final int START_INDEX = 0;
-    private static final int SOURCEPORT_INDEX = 1;
+    /*private static final int SOURCEPORT_INDEX = 1;
     private static final int SOURCEIP_INDEX = 2;
     private static final int SOURCEPACKETIP_INDEX = 3;
     private static final int DESTPORT_INDEX = 4;
@@ -28,7 +28,7 @@ public class EagleEye {
     private static final int DESTPACKETIP_INDEX = 6;
     private static final int REGION_INDEX = 7;
     private static final int BYTE_INDEX = 8;
-
+    */
     private static final int NUM_FLAGS = 9;
 
     // Main hash map of connections, key is IP and value is a ConnectionsHolder
@@ -68,7 +68,7 @@ public class EagleEye {
             String flowLogLine = sanitizeConnectionLine(flowLogScanner.nextLine());
             Scanner flowLogLineReader = new Scanner(flowLogLine);
             ArrayList<String> tokenHolder = new ArrayList<>();
-            while (flowLogLineReader.hasNext()) { // Puts all tokens of a line into stack
+            while (flowLogLineReader.hasNext()) { // Puts all tokens of a line into an ArrayList
                 tokenHolder.add(flowLogLineReader.next());
             }
             flowLogLineReader.close();
