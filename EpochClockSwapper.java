@@ -6,10 +6,7 @@ import java.util.Date;
 *
 */
 public class EpochClockSwapper {
-    
-    private static final long TRUNCATE_DATE = 86_400; // Shave off MM/dd/yyyy and only return clock time
-    private static final int OFFSET = 3_600; // Don't know why but having this perfectly aligns truncated time to give just the hour and minute
-    
+        
     private Date date; // Main Date object
     
     /*
@@ -38,12 +35,13 @@ public class EpochClockSwapper {
     * Returns the time as a long epoch in seconds, but as if it were on day 0 so as to only have the clock time
     */
     public long getUNIXTruncatedTime() {
+        final int SECONDS_PER_HOUR = 3_600;
+        final int SECONDS_PER_MINUTE = 60;
         String timeAsString = getTruncatedDateTime();
-        String hour = timeAsString.substring(0, 2);
-        String minute = timeAsString.substring(3, 5);
-        String second = timeAsString.substring(6);
-        // TODO
-        
+        long hour = Long.parseLong(timeAsString.substring(0, 2));
+        long minute = Long.parseLong(timeAsString.substring(3, 5));
+        long second = Long.parseLong(timeAsString.substring(6));
+        return hour*SECONDS_PER_HOUR + minute*SECONDS_PER_MINUTE + second;
     }
     
     /*
